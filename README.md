@@ -1,28 +1,28 @@
 <h3 align="center"><strong>Deep Learning Project</strong></h1>
-<h1 align="center"><strong>Object Detection Project</strong></h1>
+Deep Learning Project
+# Tracking people in CCTV using YOLO
+## I. 프로젝트 개요
+1. 프로젝트 배경 및 목적  
+   현대사회에서 CCTV는 보안 및 치안 등의 목적으로 곳곳에 설치되어 있다. 하루에도 엄청난 양의 데이터를 쏟아내는 CCTV를 통해 사람들의 편리와 안전을 위해 
+   
+3. 데이터셋 소개
+<p align="center"><img src="https://user-images.githubusercontent.com/72811950/108450701-fa0a8e00-72a8-11eb-82f0-0d82da5d6924.png" width="780" height="280"></p>
 
-## 프로젝트 목적
-- 객체를 추적하는 신경망(YOLO)의 원리와 방식을 이해하고 사용법 학습
-
-## 프로젝트 목표
-- 본 프로젝트는 CCTV에서 특정 타겟을 검출하는데 목표가 있다.  
-  모든 object를 추적하는 것이 아니라  특정 인물을 학습하고 다른 CCTV에서 그 인물이 나타났을 때 검출을 하도록 목표를 세웠다.  
-  이 경우 추적 범위를 빠르게 좁혀 미아찾기나 보안 등에 활용될 수 있다.
+- 실내 50개, 실외 50 총 100개의 폴더로 구성
+* 폴더 구성
+  * video : 추적대상이 찍힌 영상 파일
+  * json : json형식의 bounding box 좌표
+  * frames : 추적대상의 이미지 파일
+   
  
-## 프로젝트 결과
+## II. 프로젝트 결과
 <p align="center"><img src="https://user-images.githubusercontent.com/72811950/108315152-5a90c100-71fe-11eb-82eb-712fbe3c8ca2.gif" width="390" height="230"/> <img src="https://user-images.githubusercontent.com/72811950/108314491-5617d880-71fd-11eb-925d-a49820d311f0.gif" width="390" height="230"/></p>
 
 - 프로젝트 전체 결과 영상  
   indoor : <https://youtu.be/EPoV2Pz7U2Y>  
   outdoor : <https://youtu.be/Uwu12zHNlns>
 
-## Dataset
-- Dataset은 실내와 실외로 구분되어 있고 실내 50개 실외 50개로 총 100개의 폴더가 있다.  
-  실내는 market 내부 영상이며 실외는 거리를 찍은 영상으로 폴더마다 다른 곳에서 찍힌 target의 video와 json형식의 라벨이 포함되어 있다.
-<p align="center"><img src="https://user-images.githubusercontent.com/72811950/108324817-bca3f300-720b-11eb-8232-5a91d173b46d.png" width="550" height="280"></p>
-
-
-## Process
+## III. Process
 <p align="center"><img src="https://user-images.githubusercontent.com/72811950/108320197-d17d8800-7205-11eb-9265-297ef37e5a0a.png" width="780" height="180"></p>
 
 > ### Preprocessing
