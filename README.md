@@ -3,28 +3,33 @@ Deep Learning Project
 Tracking people in CCTV using YOLO
 ==================================
 
-I. 프로젝트 개요
+I. Introduction
 ----------------
 현대사회에서 CCTV는 보안 및 치안 등의 목적으로 곳곳에 설치되어 있다. 사람들의 편리와 안전을 지켜주기 위해 하루에도 엄청난 양의 데이터를 쏟아내고 있지만, 미아가 생기고 범죄 사건이 발생한다. 본 프로젝트에서는, YOLO를 활용한 Object Tracking으로 미아 혹은 수상한 사람을 CCTV에서 검출하여 다른 각도의 CCTV에서 또한 발견한 인물을 검출하도록 노력하였다. YOLO의 여러 버전들을 비교 분석하며, 목표 인물이 영상에 검출 되었다면 실제 사람이 해당 영상을 통해 확인하고 추적하는 컨셉이기 때문에 끊기지 않는 추적보다는 목표 인물 검출에 포커스를 두었다.
    
-데이터셋 소개
+#### 데이터셋 소개: 실내 50개, 실외 50 총 100개의 폴더로 구성
 <p align="center"><img src="https://user-images.githubusercontent.com/72811950/108450701-fa0a8e00-72a8-11eb-82f0-0d82da5d6924.png" width="780" height="280"></p>
 
-- 실내 50개, 실외 50 총 100개의 폴더로 구성
 * 폴더 구성
   * video : 추적대상이 찍힌 영상 파일(각 폴더마다 3~5개의 
   * json : json형식의 bounding box 좌표
   * frames : 추적대상의 이미지 파일
-   
- 
-II. 프로젝트 결과
------------------
-YOLOv3, YOLOv4 + DeepSORT, YOLOv5 비교
-<영상 들어갈 자리>
 
-- 실내 17개의 frame 학습 후 test
-- 실외 18개의 frame 학습 후 test
+#### Prerequisites
+<YOLO v5 설치 작업 넣을까욤?> 깃 클론 
+ 
+II. Result
+-----------
+YOLOv3, YOLOv4 + DeepSORT, YOLOv5 비교
+![image](https://user-images.githubusercontent.com/28764376/108457555-355f8980-72b6-11eb-995f-97393f07ba88.png) ![image](https://user-images.githubusercontent.com/28764376/108457620-52945800-72b6-11eb-9cff-ccb9b9ffaa60.png) ![image](https://user-images.githubusercontent.com/28764376/108457637-5c1dc000-72b6-11eb-8f37-e121fdca015c.png)
+
+- 실내 17개의 frame 학습 후 test (핑크 자켓 여성)
+- 실외 18개의 frame 학습 후 test (분홍티 여자아이)
 <p align="center"><img src="https://user-images.githubusercontent.com/72811950/108315152-5a90c100-71fe-11eb-82eb-712fbe3c8ca2.gif" width="390" height="230"/> <img src="https://user-images.githubusercontent.com/72811950/108314491-5617d880-71fd-11eb-925d-a49820d311f0.gif" width="390" height="230"/></p>
+
+- 실내 9개의 frame 학습 후 test (빨간 줄무늬 남자아이)
+- 실외 16개의 frame 학습 후 test (중절모 남성)
+![image](https://user-images.githubusercontent.com/28764376/108457883-c0408400-72b6-11eb-9835-a49a4a1aa4de.png) ![image](https://user-images.githubusercontent.com/28764376/108457898-c9315580-72b6-11eb-9567-4ff358fbcc53.png)
 
 - 프로젝트 전체 결과 영상  
   indoor : <https://youtu.be/EPoV2Pz7U2Y>  
