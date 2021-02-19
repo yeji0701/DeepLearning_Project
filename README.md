@@ -9,12 +9,14 @@ Deep Learning Project
 
 - 실내 50개, 실외 50 총 100개의 폴더로 구성
 * 폴더 구성
-  * video : 추적대상이 찍힌 영상 파일
+  * video : 추적대상이 찍힌 영상 파일(각 폴더마다 3~5개의 
   * json : json형식의 bounding box 좌표
   * frames : 추적대상의 이미지 파일
    
  
 ## II. 프로젝트 결과
+- 실내 17개의 frame 학습 후 test
+- 실외 18개의 frame 학습 후 test
 <p align="center"><img src="https://user-images.githubusercontent.com/72811950/108315152-5a90c100-71fe-11eb-82eb-712fbe3c8ca2.gif" width="390" height="230"/> <img src="https://user-images.githubusercontent.com/72811950/108314491-5617d880-71fd-11eb-925d-a49820d311f0.gif" width="390" height="230"/></p>
 
 - 프로젝트 전체 결과 영상  
@@ -25,46 +27,39 @@ Deep Learning Project
 <p align="center"><img src="https://user-images.githubusercontent.com/72811950/108320197-d17d8800-7205-11eb-9265-297ef37e5a0a.png" width="780" height="180"></p>
 
 > ### Preprocessing
-> - Image Augmentation
+> 1. Image Augmentation
+> <p align="center"><img src="https://user-images.githubusercontent.com/72811950/108452462-e3196b00-72ab-11eb-9472-0caae061ef4a.jpg" width="780" height="400"></p>
+> 
+> - image augmentation code : < >
+> 
+> 2. json -> txt
 > ```
-> # 이미지파일 읽기
-> def read_train_dataset(dir):
->   images = []
->   names = []
-> 
->   for file in listdir(dir):
->     if 'jpg' in file.lower() or 'png' in file.lower():
->       images.append(cv2.imread(dir + file, 1))
->       name = file.split('.')[0]
->       names.append(name)
->     images = np.array(images)
->     return images, names
-> 
-> # 다양한 이미지 증강 효과 설정 
-> seq_list = [iaa.Flipud(1.0), iaa.Fliplr(1.0), iaa.AverageBlur(k=5), 
->             iaa.imgcorruptlike.GaussianNoise(severity=2),
->             iaa.imgcorruptlike.Brightness(severity=2), iaa.SaltAndPepper(0.1), iaa.Grayscale(alpha=1.0), 
->             iaa.Affine(rotate=45), iaa.Affine(rotate=-30), iaa.Affine(shear=(-25, 25)), 
->             iaa.PiecewiseAffine(scale=(0.01, 0.05)), iaa.Rot90(1), iaa.imgcorruptlike.Snow(severity=2)]
-> 
-> ia.seed(1)
-> dir = 'dir'
-> images, names = read_train_dataset(dir)
-> 
-> # 증강한 이미지 저장
-> for count, seq in enumerate(seq_list):
-> 
->   for idx in range(len(images)):
->     image = images[idx]
->     seq = seq
->     seq_det = seq.to_deterministic()
->     image_aug = seq_det.augment_images([image])[0]
->     new_image_file = "dir/after_{}_{}.jpg".format(count, names[idx])
->     cv2.imwrite(new_image_file, image_aug)
+> for filepath in json_filepath:
+>    with open(filepath) as json_file:
+>        # json 파일 로드, 파싱, yolo 좌표값으로변환
+>        
+>        json_data = json.load(json_file)
+>        center_x = str((json_data['mark'][0]['coordinates'][1][0] + json_data['mark'][0]['coordinates'][0][0]) / 2)
+>        center_y = str((json_data['mark'][0]['coordinates'][2][1] + json_data['mark'][0]['coordinates'][0][1]) / 2)
+>        w = str(json_data['mark'][0]['coordinates'][1][0] - json_data['mark'][0]['coordinates'][0][0])
+>        h = str(json_data['mark'][0]['coordinates'][2][1] - json_data['mark'][0]['coordinates'][0][1])
+>        
+>        # 좌표값 저장
+>        data = str("0 {} {} {} {}".format(center_x, center_y, w, h))
+>        
+>        # 레이블 텍스트 저장할 경로 설정
+>        label_path = './labels' + filepath[6:-4:] + 'txt'
+>
+>        # 텍스트 쓰기
+>        f = open(label_path, 'w')
+>        f.write(data)
+>        f.close()
 > ```
 > ### Training
-> - Changing Resolution Size
+> 1. Changing Resolution Size
 > ```
+> <yolo.cfg>
+> 
 > # 정확도 향상을 위해 픽셀 해상도를 크게 함
 > 
 > batch=64
@@ -72,12 +67,12 @@ Deep Learning Project
 > width=608  <-- 변경
 > height=608  <-- 변경
 > ```
-> - Optimizing Anchor Box
+> 2. Optimizing Anchor Box
 > ```
 >
 > ```
 > ### Test
-> - Adjusting Confidence Threshold
+> 1. Adjusting Confidence Threshold
 > ```
 > # -threshold {} <-- 조정하여 되도록 target만 detection하도록 함
 > 
