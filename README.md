@@ -1,4 +1,3 @@
-<h3 align="center"><strong>Deep Learning Project</strong></h1>
 Deep Learning Project
 # Tracking people in CCTV using YOLO
 ## I. 프로젝트 개요
