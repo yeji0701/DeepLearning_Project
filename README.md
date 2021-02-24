@@ -20,8 +20,11 @@ I. Introduction
  
 II. Result
 -----------
-YOLOv3, YOLOv4 + DeepSORT, YOLOv5 비교
-![image](https://user-images.githubusercontent.com/28764376/108457555-355f8980-72b6-11eb-995f-97393f07ba88.png) ![image](https://user-images.githubusercontent.com/28764376/108457620-52945800-72b6-11eb-9cff-ccb9b9ffaa60.png) ![image](https://user-images.githubusercontent.com/28764376/108457637-5c1dc000-72b6-11eb-8f37-e121fdca015c.png)
+#### YOLOv3, YOLOv4 + DeepSORT, YOLOv5 비교
+<p align="center"><img src="https://user-images.githubusercontent.com/28764376/108942604-a1693580-769a-11eb-927c-13bd664eedcc.gif" width="390" height="230"/> <img src="https://user-images.githubusercontent.com/28764376/108942747-e4c3a400-769a-11eb-9bfb-6c2bb78b5978.gif" width="390" height="230"/> <img src="https://user-images.githubusercontent.com/28764376/108942780-f6a54700-769a-11eb-8c71-822697f45f5d.gif" width="390" height="230"/></p>
+
+#### Best weight: epoch별로 precision, recall, 0.5mAP, .5:.95mAP으로 weight가 산출 되는데, default 값으로 설정하여 .5mAP 10%, .5:.95mAP 90% 비중을 주어 가장 장 나온 가중치를 이용하여 테스트 영상에서 인물을 검출 하였음
+![image](https://user-images.githubusercontent.com/28764376/108944745-bd6ed600-769e-11eb-8562-6a12052d07dc.png)
 
 - 실내 17개의 frame 학습 후 test (핑크 자켓 여성)
 - 실외 18개의 frame 학습 후 test (분홍티 여자아이)
@@ -29,31 +32,25 @@ YOLOv3, YOLOv4 + DeepSORT, YOLOv5 비교
 
 - 실내 9개의 frame 학습 후 test (빨간 줄무늬 남자아이)
 - 실외 16개의 frame 학습 후 test (중절모 남성)
-![image](https://user-images.githubusercontent.com/28764376/108457883-c0408400-72b6-11eb-9835-a49a4a1aa4de.png) ![image](https://user-images.githubusercontent.com/28764376/108457898-c9315580-72b6-11eb-9567-4ff358fbcc53.png)
-
-- 프로젝트 전체 결과 영상  
-  indoor : <https://youtu.be/EPoV2Pz7U2Y>  
-  outdoor : <https://youtu.be/Uwu12zHNlns>
+<p align="center"><img src="https://user-images.githubusercontent.com/28764376/108942846-10468e80-769b-11eb-93f4-db6563e97c0a.gif" width="390" height="230"/> <img src="https://user-images.githubusercontent.com/28764376/108942916-2a806c80-769b-11eb-87c6-06d5ec65f039.gif" width="390" height="230"/></p>
 
 III. Process
 -------------
 <p align="center"><img src="https://user-images.githubusercontent.com/72811950/108320197-d17d8800-7205-11eb-9265-297ef37e5a0a.png" width="780" height="180"></p>
 
-1. Preprocessing
-   * Image Augmentation
+1. Preprocess
+   * Image Augmentation: 
+      <p align="left"><img src="https://user-images.githubusercontent.com/72811950/108452462-e3196b00-72ab-11eb-9472-0caae061ef4a.jpg" width="780" height="400"></p>
       - [Image augmentation code](기중 이미지 증강 시키는 코드 커밋하고 여기에 코드 url 넣어주세여)
-      - <p align="center"><img src="https://user-images.githubusercontent.com/72811950/108452462-e3196b00-72ab-11eb-9472-0caae061ef4a.jpg" width="780" height="400"></p>
-
+         
    * json -> txt
+      <p align="center"><img src="https://user-images.githubusercontent.com/28764376/108456228-37741900-72b3-11eb-87ad-d6dab055b416.png" width="780" height="400"></p>
       - [Format conversion code](https://github.com/yeji0701/DeepLearning_Project/blob/main/code/jc/00_label_json_to_txt.ipynb)
-      - ![image](https://user-images.githubusercontent.com/28764376/108456228-37741900-72b3-11eb-87ad-d6dab055b416.png)
-
-2. Training
+       
+2. Train
    * Changing Resolution Size
    ```
-   <yolo.cfg>
-
-   # 정확도 향상을 위해 픽셀 해상도를 크게 함
+   # 정확도 향상을 위해 yolo.cfg의 픽셀 해상도를 크게 함
 
    batch=64
    subdivisions=32
@@ -64,14 +61,28 @@ III. Process
    ```
    여기에도 뭐가 들어갈거죵?
    ```
+   
 3. Test
+   * Detect Single Object
+   ```
+   # confidence가 높은 1개의 타겟만 검출하도록 general.py 소스 코드 변경
+   
+   ![image](https://user-images.githubusercontent.com/28764376/108943187-aa0e3b80-769b-11eb-8932-86abe81cb9c3.png)
+   ```
    * Adjusting Confidence Threshold
    ```
-   # -threshold {} <-- 조정하여 되도록 target만 detection하도록 함
+   # -thresh {} <-- 조정하여 되도록 target만 detection하도록 함
    
    ./darknet detector demo custom_data/detector.data custom_data/cfg/yolov3-custom-test.cfg 
    backup/yolov3-custom_best.weights ./test.mp4 - thresh 0.6 -out_filename out.avi -dont_show
    ```
+   
+4. Evaluation
+   * mAP (Mean Average Precision)은 Object Detection의 평가지표로 많이 사용되지만 끊김 없이 특정 물체를 따라기기보다 특정 인물을 검출하는 것이 목표인 본 프로젝트에서는 해당 지표를 이용하여 성능을 평가하기에는 한계가 존재:
+      - mAP 값이 높아도 물체를 잘 tracking 하는 것은 아니라 다른 물체를 잡거나 중복 감지를 해도 값이 높아지는 것을 발견했음
+   * 그렇기 때문에 자체 수기 산출 방식을 고안하였고, 초당 3 프레임 간격으로 프레임을 샘플링하여 수기로 Accuracy, Precision, Recall, F1-score을 산출 하였음
+   * [Detailed scoreboard](https://github.com/yeji0701/DeepLearning_Project/blob/main/scoreboard.xlsx)
+      <p align="center"><img src="https://user-images.githubusercontent.com/28764376/108944026-44bb4a00-769d-11eb-9ab0-6198ee05650e.png" width="780" height="400"></p>
 
 마치며
 ------
@@ -85,3 +96,12 @@ III. Process
 1. yolo 소스 코드 분석을 통한 데이터에 최적화 된 튜닝
 2. 보다 Target에 특화된 Custom Training을 통한 모델 개선
 3. 모든 시도는 소중하니, 결과를 기록하는 습관 개선
+
+Built with:
+-----------
+- 김미정
+- 김예지
+   * 이미지 증강 및 mixup, YOLOv3-tiny와 YOLOv3를 이용한 object tracking
+   * Github: https://github.com/yeji0701
+- 이기중
+- 최재철
