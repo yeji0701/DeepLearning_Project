@@ -15,13 +15,17 @@ I. Introduction
   * json : json형식의 bounding box 좌표
   * frames : 추적대상의 이미지 파일
 
-#### Prerequisites
-<YOLO v5 설치 작업 넣을까욤?> 깃 클론 
+#### Prerequisites (yolov5)
+```
+$ git clone https://github.com/ultralytics/yolov5  # clone repo
+$ cd yolov5
+$ pip install -r requirements.txt  # install dependencies
+```
  
 II. Result
 -----------
 #### YOLOv3, YOLOv4 + DeepSORT, YOLOv5 비교
-<p align="center"><img src="result_gif/yolov3.gif" width="390" height="230"/> <img src="result_gif/yolov4.gif" width="390" height="230"/> <img src="result_gif/yolov5.gif" width="390" height="230"/></p>
+<p align="center"><img src="result_gif/yolov3.gif" width="310" height="200"/> <img src="result_gif/yolov4.gif" width="310" height="200"/> <img src="result_gif/yolov5.gif" width="310" height="200"/></p>
 
 #### Best weight: epoch별로 precision, recall, 0.5mAP, .5:.95mAP으로 weight가 산출 되는데, default 값으로 설정하여 .5mAP 10%, .5:.95mAP 90% 비중을 주어 가장 장 나온 가중치를 이용하여 테스트 영상에서 인물을 검출 하였음
 ![image](https://user-images.githubusercontent.com/28764376/108944745-bd6ed600-769e-11eb-8562-6a12052d07dc.png)
@@ -59,15 +63,24 @@ III. Process
    ```
    * Optimizing Anchor Box
    ```
-   여기에도 뭐가 들어갈거죵?
+   from utils.autoanchor import *
+   _ = kmean_anchors(path='./data.yaml', n=9, img_size=640, thr=4.0, gen=1000, verbose=True)
    ```
+     - [Format conversion code](https://github.com/yeji0701/DeepLearning_Project/blob/main/code/jc/01_yolov5x_with_autoanchor.ipynb)
    
 3. Test
    * Detect Single Object
    ```
-   # confidence가 높은 1개의 타겟만 검출하도록 general.py 소스 코드 변경
+    # confidence가 높은 1개의 타겟만 검출하도록 general.py 소스 코드 변경
    
-   ![image](https://user-images.githubusercontent.com/28764376/108943187-aa0e3b80-769b-11eb-8932-86abe81cb9c3.png)
+    # Settings
+    min_wh, max_wh = 2, 4096  # (pixels) minimum and maximum box width and height
+    max_det = 1  # maximum number of detections per image
+    max_nms = 30000  # maximum number of boxes into torchvision.ops.nms()
+    time_limit = 10.0  # seconds to quit after
+    redundant = True  # require redundant detections
+    multi_label = nc > 1  # multiple labels per box (adds 0.5ms/img)
+    merge = False  # use merge-NMS
    ```
    * Adjusting Confidence Threshold
    ```
@@ -82,7 +95,7 @@ III. Process
       - mAP 값이 높아도 물체를 잘 tracking 하는 것은 아니라 다른 물체를 잡거나 중복 감지를 해도 값이 높아지는 것을 발견했음
    * 그렇기 때문에 자체 수기 산출 방식을 고안하였고, 초당 3 프레임 간격으로 프레임을 샘플링하여 수기로 Accuracy, Precision, Recall, F1-score을 산출 하였음
    * [Detailed scoreboard](https://github.com/yeji0701/DeepLearning_Project/blob/main/scoreboard.xlsx)
-      <p align="center"><img src="https://user-images.githubusercontent.com/28764376/108944026-44bb4a00-769d-11eb-9ab0-6198ee05650e.png" width="780" height="400"></p>
+      <p align="left"><img src="https://user-images.githubusercontent.com/28764376/108944026-44bb4a00-769d-11eb-9ab0-6198ee05650e.png" width="430" height="380"></p>
 
 마치며
 ------
