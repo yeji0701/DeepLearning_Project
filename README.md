@@ -92,7 +92,7 @@ III. Process
       - mAP 값이 높아도 물체를 잘 tracking 하는 것은 아니라 다른 물체를 잡거나 중복 감지를 해도 값이 높아지는 것을 발견했음
    * 그렇기 때문에 자체 수기 산출 방식을 고안하였고, 초당 3 프레임 간격으로 프레임을 샘플링하여 수기로 Accuracy, Precision, Recall, F1-score을 산출 하였음
    * [Detailed scoreboard](https://github.com/yeji0701/DeepLearning_Project/blob/main/scoreboard.xlsx)
-      <p align="left"><img src="https://user-images.githubusercontent.com/28764376/108944026-44bb4a00-769d-11eb-9ab0-6198ee05650e.png" width="430" height="380"></p>
+      <p align="left"><img src="https://user-images.githubusercontent.com/28764376/108944026-44bb4a00-769d-11eb-9ab0-6198ee05650e.png" width="430" height="350"></p>
 
 마치며
 ------
