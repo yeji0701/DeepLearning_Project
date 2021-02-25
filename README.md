@@ -21,7 +21,7 @@ I. Introduction
 II. Result
 -----------
 #### YOLOv3, YOLOv4 + DeepSORT, YOLOv5 비교
-<p align="center"><img src="https://user-images.githubusercontent.com/28764376/108942604-a1693580-769a-11eb-927c-13bd664eedcc.gif" width="390" height="230"/> <img src="https://user-images.githubusercontent.com/28764376/108942747-e4c3a400-769a-11eb-9bfb-6c2bb78b5978.gif" width="390" height="230"/> <img src="https://user-images.githubusercontent.com/28764376/108942780-f6a54700-769a-11eb-8c71-822697f45f5d.gif" width="390" height="230"/></p>
+<p align="center"><img src="result_gif/yolov3.gif" width="390" height="230"/> <img src="result_gif/yolov4.gif" width="390" height="230"/> <img src="result_gif/yolov5.gif" width="390" height="230"/></p>
 
 #### Best weight: epoch별로 precision, recall, 0.5mAP, .5:.95mAP으로 weight가 산출 되는데, default 값으로 설정하여 .5mAP 10%, .5:.95mAP 90% 비중을 주어 가장 장 나온 가중치를 이용하여 테스트 영상에서 인물을 검출 하였음
 ![image](https://user-images.githubusercontent.com/28764376/108944745-bd6ed600-769e-11eb-8562-6a12052d07dc.png)
@@ -32,7 +32,7 @@ II. Result
 
 - 실내 9개의 frame 학습 후 test (빨간 줄무늬 남자아이)
 - 실외 16개의 frame 학습 후 test (중절모 남성)
-<p align="center"><img src="https://user-images.githubusercontent.com/28764376/108942846-10468e80-769b-11eb-93f4-db6563e97c0a.gif" width="390" height="230"/> <img src="https://user-images.githubusercontent.com/28764376/108942916-2a806c80-769b-11eb-87c6-06d5ec65f039.gif" width="390" height="230"/></p>
+<p align="center"><img src="result_gif/red_stripe.gif" width="390" height="230"/> <img src="result_gif/hat.gif" width="390" height="230"/></p>
 
 III. Process
 -------------
