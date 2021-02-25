@@ -115,6 +115,15 @@ Built with:
    * Github: https://github.com/yeji0701
 - 이기중
 - 최재철
-   * yolov3 tiny
-   * yolov5 config setting
-   * scoreboard sheet
+   * yolov3-tiny
+   * yolov5 config setting, scoreboard sheet
+   * Github: https://github.com/kkobooc
+
+Acknowledgements:
+-----------------
+- [Darknet](https://github.com/pjreddie/darknet)
+- [Alexey](https://github.com/AlexeyAB)
+- [YOLOv4](https://github.com/kiyoshiiriemon/yolov4_darknet)
+- [YOLOv4 + DeepSORT](https://github.com/theAIGuysCode/yolov4-deepsort)
+- [YOLOv5](https://github.com/ultralytics/yolov5)
+
