@@ -114,6 +114,8 @@ Built with:
    * 이미지 증강 및 mixup, YOLOv3-tiny와 YOLOv3를 이용한 object tracking
    * Github: https://github.com/yeji0701
 - 이기중
+   * 이미지 증강 및 yolov3 yolov4를 이용한 object detection 테스트
+   * Github: https://github.com/GIGI123422
 - 최재철
    * yolov3-tiny
    * yolov5 config setting, scoreboard sheet
