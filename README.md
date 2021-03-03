@@ -43,7 +43,7 @@ III. Process
 <p align="center"><img src="https://user-images.githubusercontent.com/72811950/108320197-d17d8800-7205-11eb-9265-297ef37e5a0a.png" width="780" height="180"></p>
 
 1. Preprocess
-   * Image Augmentation : [Code](기중 이미지 증강 시키는 코드 커밋하고 여기에 코드 url 넣어주세여)
+   * Image Augmentation : [Code](https://github.com/yeji0701/DeepLearning_Project/blob/main/code/gj/apply_blur2.ipynb)
       <p align="left"><img src="https://user-images.githubusercontent.com/72811950/108452462-e3196b00-72ab-11eb-9472-0caae061ef4a.jpg" width="780" height="400"></p>
          
    * json -> txt : [Code](https://github.com/yeji0701/DeepLearning_Project/blob/main/code/jc/00_label_json_to_txt.ipynb)
