@@ -110,6 +110,8 @@ III. Process
 Built with:
 -----------
 - 김미정
+   * YOLOv5를 이용한 object tracking
+   * Github: https://github.com/LeilaYK
 - 김예지
    * 이미지 증강 및 mixup, YOLOv3-tiny와 YOLOv3를 이용한 object tracking
    * Github: https://github.com/yeji0701
